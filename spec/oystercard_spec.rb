@@ -24,5 +24,11 @@ describe Oystercard do
       expect{ oystercard.top_up(0) }.to raise_error(RuntimeError, message)
     end
 
+    it "raises an error if you try to top up too much" do
+      maximum_top_up = Oystercard::MAXIMUM_TOP_UP
+      message = "You can top up a maximum of #{maximum_top_up}."
+      expect {oystercard.top_up(maximum_top_up + 1)}.to raise_error(RuntimeError, message)
+    end
+
   end
 end
