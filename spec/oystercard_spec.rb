@@ -20,30 +20,49 @@ describe Oystercard do
 
   describe 'error handling' do
 
-    it "will raise an error if the user tops up with a negative number" do
-      message = "You can't top up with a negative number."
-      expect{oystercard.top_up(-5)}.to raise_error(RuntimeError, message)
+    describe 'topping up' do
+
+      it "will raise an error if the user tops up with a negative number" do
+        message = "You can't top up with a negative number."
+        expect{oystercard.top_up(-5)}.to raise_error(RuntimeError, message)
+      end
+
+      it 'raises an error if you try to top up 0' do
+        message = "You can't top up 0."
+        expect{ oystercard.top_up(0) }.to raise_error(RuntimeError, message)
+      end
+
+      it "raises an error if you try to top up too much" do
+        maximum_top_up = Oystercard::MAXIMUM_TOP_UP
+        message = "You can top up a maximum of #{maximum_top_up}."
+        expect {oystercard.top_up(maximum_top_up + 1)}.to raise_error(RuntimeError, message)
+      end
+
+      it 'raises an error if you try to top up a number with >2 decimal places' do
+        message = 'You can only top up numbers with a max. of 2 decimal places'
+        expect { oystercard.top_up(1.111) }.to raise_error(RuntimeError, message)
+      end
+
     end
 
-    it 'raises an error if you try to top up 0' do
-      message = "You can't top up 0."
-      expect{ oystercard.top_up(0) }.to raise_error(RuntimeError, message)
+    describe 'deducting' do
+
+      it "raises an error if you try to deduct a negative number" do
+        message = "You can not deduct a negative number."
+        expect {oystercard.deduct_fare(-1)}.to raise_error(RuntimeError, message)
+      end
+
+      it "raises an error if you try to deuct 0" do
+        message = "You can not deduct 0."
+        expect {oystercard.deduct_fare(0)}.to raise_error(RuntimeError, message)
+      end
+
+      it 'raises an error if you try to deduct a number with >2 decimal places' do
+        message = "You can only deduct numbers with a max. of 2 decimal places"
+        expect { oystercard.deduct_fare(1.1111) }.to raise_error(RuntimeError, message)
+      end
+
     end
 
-    it "raises an error if you try to top up too much" do
-      maximum_top_up = Oystercard::MAXIMUM_TOP_UP
-      message = "You can top up a maximum of #{maximum_top_up}."
-      expect {oystercard.top_up(maximum_top_up + 1)}.to raise_error(RuntimeError, message)
-    end
-
-    it "raises an error if you try to deduct a negative number" do
-      message = "You can not deduct a negative number."
-      expect {oystercard.deduct_fare(-1)}.to raise_error(RuntimeError, message)
-    end
-
-    it "raises an error if you try to deuct 0" do
-      message = "You can not deduct 0."
-      expect {oystercard.deduct_fare(0)}.to raise_error(RuntimeError, message)
-    end
   end
 end
