@@ -12,8 +12,17 @@ describe Oystercard do
     expect(oystercard.balance).to eq 20
   end
 
-  it "will raise an error if the user tops up with a negative number" do
-    message = "You can't top up with a negative number."
-    expect{oystercard.top_up(-5)}.to raise_error(RuntimeError, message)
+  describe 'error handling' do
+
+    it "will raise an error if the user tops up with a negative number" do
+      message = "You can't top up with a negative number."
+      expect{oystercard.top_up(-5)}.to raise_error(RuntimeError, message)
+    end
+
+    it 'raises an error if you try to top up 0' do
+      message = "You can't top up 0."
+      expect{ oystercard.top_up(0) }.to raise_error(RuntimeError, message)
+    end
+
   end
 end
