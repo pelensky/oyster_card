@@ -6,6 +6,7 @@ class Oystercard
 
   def initialize
     @balance = 0
+    @touch_in = false
   end
 
   def top_up(number)
@@ -34,8 +35,17 @@ class Oystercard
   end
 
   def touch_in?
-    false
+    @touch_in
   end
 
+  def touch_in
+    self.touch_in=(true)
+  end
+
+  private
+
+    def touch_in=(boolean)
+      @touch_in = boolean
+    end
 
 end

@@ -21,18 +21,18 @@ describe Oystercard do
     end
   end
 
-  # describe "touching in and out" do
-  #
-  #   it "initializes with a touched in value of false" do
-  #     expect(oystercard.touch_in?).to be false
-  #   end
-  #
-  #   it "returns true when it is touched in" do
-  #     oystercard.touch_in
-  #     expect(oystercard.touch_in?).to be true
-  #   end
-  #
-  # end
+  describe "touching in and out" do
+
+    it "initializes with a touched in value of false" do
+      expect(oystercard.touch_in?).to be false
+    end
+
+    it "returns true when it is touched in" do
+      oystercard.touch_in
+      expect(oystercard.touch_in?).to be true
+    end
+
+  end
 
   describe 'error handling' do
 
