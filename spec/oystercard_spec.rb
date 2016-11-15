@@ -36,5 +36,14 @@ describe Oystercard do
       expect {oystercard.top_up(maximum_top_up + 1)}.to raise_error(RuntimeError, message)
     end
 
+    it "raises an error if you try to deduct a negative number" do
+      message = "You can not deduct a negative number."
+      expect {oystercard.deduct_fare(-1)}.to raise_error(RuntimeError, message)
+    end
+
+    it "raises an error if you try to deuct 0" do
+      message = "You can not deduct 0."
+      expect {oystercard.deduct_fare(0)}.to raise_error(RuntimeError, message)
+    end
   end
 end

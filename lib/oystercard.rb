@@ -16,6 +16,8 @@ class Oystercard
   end
 
   def deduct_fare(number)
+    raise "You can not deduct a negative number." if number < 0
+    raise "You can not deduct 0." if number == 0
     @balance -= number
   end
 
