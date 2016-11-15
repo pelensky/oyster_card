@@ -20,13 +20,17 @@ class Oystercard
     @balance.add_amount(number)
   end
 
-  def deduct_fare(number)
-    raise "You can only deduct a number." unless is_integer_or_float?(number)
-    raise "You can not deduct a negative number." if number < 0
-    raise "You can not deduct 0." if number == 0
-    raise 'You can only deduct numbers with a max. of 2 decimal places' unless has_no_more_than_two_decimal_places?(number)
-    @balance.deduct_amount(number)
-  end
+
+  # redundant for now, but lets' keep it
+  # so we can refer to it in future
+  #
+  # def deduct_fare(number)
+  #   raise "You can only deduct a number." unless is_integer_or_float?(number)
+  #   raise "You can not deduct a negative number." if number < 0
+  #   raise "You can not deduct 0." if number == 0
+  #   raise 'You can only deduct numbers with a max. of 2 decimal places' unless has_no_more_than_two_decimal_places?(number)
+  #   @balance.deduct_amount(number)
+  # end
 
   def has_no_more_than_two_decimal_places?(number)
     number == number.round(2)

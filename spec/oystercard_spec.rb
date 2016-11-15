@@ -14,11 +14,11 @@ describe Oystercard do
       expect(oystercard.balance.amount).to eq 20
     end
 
-    it "can have its balance deducted" do
-     oystercard.top_up(20)
-     oystercard.deduct_fare(15)
-     expect(oystercard.balance.amount).to eq 5
-   end
+  #   it "can have its balance deducted" do
+  #    oystercard.top_up(20)
+  #    oystercard.deduct_fare(15)
+  #    expect(oystercard.balance.amount).to eq 5
+  #  end
 
   end
 
