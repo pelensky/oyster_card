@@ -47,7 +47,7 @@ describe Oystercard do
      expect { oystercard.touch_in }.to change{oystercard.in_journey}.from(false).to (true)
    end
 
-   it "in journey should be true if oyster has touched in" do
+   it "in journey should be false if oyster has touched out" do
      oystercard.touch_in
      expect { oystercard.touch_out }.to change{oystercard.in_journey}.from(true).to (false)
    end
