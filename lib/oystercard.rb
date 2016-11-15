@@ -42,6 +42,10 @@ class Oystercard
     self.touch_in=(true)
   end
 
+  def touch_out
+    self.touch_in=(false)
+  end
+
   private
 
     def touch_in=(boolean)

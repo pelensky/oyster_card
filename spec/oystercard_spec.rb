@@ -32,6 +32,12 @@ describe Oystercard do
       expect(oystercard.touch_in?).to be true
     end
 
+    it "returns false when it is not touched in" do
+      oystercard.touch_in
+      oystercard.touch_out
+      expect(oystercard.touch_in?).to be false
+    end
+
   end
 
   describe 'error handling' do
