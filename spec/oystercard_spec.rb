@@ -96,5 +96,20 @@ describe Oystercard do
 
     end
 
+    describe "touching in and out" do
+      it "raises an error if you try to touch in a card that is already touched in" do
+        message = "Error. That card is already touched in."
+        oystercard.touch_in
+        expect { oystercard.touch_in }.to raise_error(RuntimeError, message)
+      end
+
+      it "raises an error if you try to touch out a card that is not touched in" do
+        message = "Error. That card is touched out."
+        expect { oystercard.touch_out }.to raise_error(RuntimeError, message)
+      end
+
+
+    end
+
   end
 end

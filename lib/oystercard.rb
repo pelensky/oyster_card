@@ -39,10 +39,12 @@ class Oystercard
   end
 
   def touch_in
+    raise "Error. That card is already touched in." if touch_in?
     self.touch_in=(true)
   end
 
   def touch_out
+    raise "Error. That card is touched out." if !touch_in?
     self.touch_in=(false)
   end
 
