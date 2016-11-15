@@ -2,6 +2,11 @@ require 'oystercard'
 
 describe Oystercard do
   subject(:oystercard) {described_class.new}
+  
+  before(:each) do
+    let(:balance) {double(:amount => Oystercard::MINIMUM_BALANCE + 1)}
+    subject.balance=(balance)
+  end
 
   describe "#balance" do
 
@@ -13,12 +18,6 @@ describe Oystercard do
       oystercard.top_up(20)
       expect(oystercard.balance.amount).to eq 20
     end
-
-  #   it "can have its balance deducted" do
-  #    oystercard.top_up(20)
-  #    oystercard.deduct_fare(15)
-  #    expect(oystercard.balance.amount).to eq 5
-  #  end
 
   end
 
@@ -73,30 +72,6 @@ describe Oystercard do
 
     end
 
-    describe 'deducting' do
-
-      it "raises an error if you try to deduct a negative number" do
-        message = "You can not deduct a negative number."
-        expect {oystercard.deduct_fare(-1)}.to raise_error(RuntimeError, message)
-      end
-
-      it "raises an error if you try to deuct 0" do
-        message = "You can not deduct 0."
-        expect {oystercard.deduct_fare(0)}.to raise_error(RuntimeError, message)
-      end
-
-      it 'raises an error if you try to deduct a number with >2 decimal places' do
-        message = "You can only deduct numbers with a max. of 2 decimal places"
-        expect { oystercard.deduct_fare(1.1111) }.to raise_error(RuntimeError, message)
-      end
-
-      it "raises an error if you do not pass in a number" do
-        message = "You can only deduct a number."
-        expect { oystercard.deduct_fare("String") }.to raise_error(RuntimeError, message)
-      end
-
-    end
-
     describe "touching in and out" do
       it "raises an error if you try to touch in a card that is already touched in" do
         message = "Error. That card is already touched in."
@@ -109,6 +84,11 @@ describe Oystercard do
         expect { oystercard.touch_out }.to raise_error(RuntimeError, message)
       end
 
+      it "raises an error if you try to touch in with < minimum balance" do
+        message = "Insufficient balance."
+        let(:balance) {double(:amount => Oystercard::MINIMUM_BALANCE - 1)}
+        expect { oystercard.touch_in }.to raise_error(RuntimeError, message)
+      end
 
     end
 

@@ -5,6 +5,7 @@ class Oystercard
   attr_reader :balance
 
   MAXIMUM_TOP_UP = 50
+  MINIMUM_BALANCE = 5
 
   def initialize
     @balance = Balance.new
@@ -20,18 +21,6 @@ class Oystercard
     @balance.add_amount(number)
   end
 
-
-  # redundant for now, but lets' keep it
-  # so we can refer to it in future
-  #
-  # def deduct_fare(number)
-  #   raise "You can only deduct a number." unless is_integer_or_float?(number)
-  #   raise "You can not deduct a negative number." if number < 0
-  #   raise "You can not deduct 0." if number == 0
-  #   raise 'You can only deduct numbers with a max. of 2 decimal places' unless has_no_more_than_two_decimal_places?(number)
-  #   @balance.deduct_amount(number)
-  # end
-
   def has_no_more_than_two_decimal_places?(number)
     number == number.round(2)
   end
@@ -46,12 +35,17 @@ class Oystercard
 
   def touch_in
     raise "Error. That card is already touched in." if touch_in?
+    raise "Insufficient balance." if @balance.amount < MINIMUM_BALANCE
     self.touch_in=(true)
   end
 
   def touch_out
     raise "Error. That card is touched out." if !touch_in?
     self.touch_in=(false)
+  end
+
+  def balance=(balance)
+    @balance = balance
   end
 
   private
