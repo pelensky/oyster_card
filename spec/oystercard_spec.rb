@@ -19,8 +19,20 @@ describe Oystercard do
       oystercard.deduct_fare(15)
       expect(oystercard.balance).to eq 5
     end
-
   end
+
+  # describe "touching in and out" do
+  #
+  #   it "initializes with a touched in value of false" do
+  #     expect(oystercard.touch_in?).to be false
+  #   end
+  #
+  #   it "returns true when it is touched in" do
+  #     oystercard.touch_in
+  #     expect(oystercard.touch_in?).to be true
+  #   end
+  #
+  # end
 
   describe 'error handling' do
 
@@ -28,7 +40,7 @@ describe Oystercard do
 
       it "will raise an error if the user tops up with a negative number" do
         message = "You can't top up with a negative number."
-        expect{oystercard.top_up(-5)}.to raise_error(RuntimeError, message)
+        expect{oystercard.top_up(-5)}.to raise_error(message)
       end
 
       it 'raises an error if you try to top up 0' do
@@ -45,6 +57,11 @@ describe Oystercard do
       it 'raises an error if you try to top up a number with >2 decimal places' do
         message = 'You can only top up numbers with a max. of 2 decimal places'
         expect { oystercard.top_up(1.111) }.to raise_error(RuntimeError, message)
+      end
+
+      it "raises an error if you do not pass in a number" do
+        message = "You can only top up a number."
+        expect { oystercard.top_up("String") }.to raise_error(RuntimeError, message)
       end
 
     end
@@ -64,6 +81,11 @@ describe Oystercard do
       it 'raises an error if you try to deduct a number with >2 decimal places' do
         message = "You can only deduct numbers with a max. of 2 decimal places"
         expect { oystercard.deduct_fare(1.1111) }.to raise_error(RuntimeError, message)
+      end
+
+      it "raises an error if you do not pass in a number" do
+        message = "You can only deduct a number."
+        expect { oystercard.deduct_fare("String") }.to raise_error(RuntimeError, message)
       end
 
     end
