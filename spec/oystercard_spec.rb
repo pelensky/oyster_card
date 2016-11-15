@@ -3,19 +3,23 @@ require 'oystercard'
 describe Oystercard do
   subject(:oystercard) {described_class.new}
 
-  it "initializes with a balance of 0" do
-    expect(oystercard.balance).to eq(0)
-  end
+  describe 'topping up and deducting balance' do
 
-  it "can have its balance topped up" do
-    oystercard.top_up(20)
-    expect(oystercard.balance).to eq 20
-  end
+    it "initializes with a balance of 0" do
+      expect(oystercard.balance).to eq(0)
+    end
 
-  it "can have its balance deducted" do
-    oystercard.top_up(20)
-    oystercard.deduct_fare(15)
-    expect(oystercard.balance).to eq 5
+    it "can have its balance topped up" do
+      oystercard.top_up(20)
+      expect(oystercard.balance).to eq 20
+    end
+
+    it "can have its balance deducted" do
+      oystercard.top_up(20)
+      oystercard.deduct_fare(15)
+      expect(oystercard.balance).to eq 5
+    end
+
   end
 
   describe 'error handling' do
