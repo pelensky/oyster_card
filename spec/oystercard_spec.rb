@@ -42,16 +42,26 @@ describe Oystercard do
    it "should check whether oyster is in journey" do
      expect(oystercard.in_journey).to eq false
    end
+ end
 
+context "touch in" do
    it "in journey should be true if oyster has touched in" do
+     oystercard.top_up(3)
      expect { oystercard.touch_in }.to change{oystercard.in_journey}.from(false).to (true)
    end
 
+   it "should fail if oyster has less than £1" do
+     oystercard.top_up(0.5)
+     expect { oystercard.touch_in}.to raise_error "Not enough money for single journey"
+   end
+end
+
+context "touch out" do
    it "in journey should be false if oyster has touched out" do
+     oystercard.top_up(2)
      oystercard.touch_in
      expect { oystercard.touch_out }.to change{oystercard.in_journey}.from(true).to (false)
    end
-
- end
+end
 
 end
