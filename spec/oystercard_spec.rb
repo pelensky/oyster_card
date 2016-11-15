@@ -26,15 +26,10 @@ describe Oystercard do
  end
 
  context "deducting a fare" do
-   it "should deduct fare given" do
-     oystercard.top_up(50)
-     expect(oystercard.deduct(24)).to eq 26
-   end
-
    it "should update balance after deducting a fare" do
      oystercard.top_up(50)
-     oystercard.deduct(3)
-     expect(oystercard.balance).to eq 47
+     oystercard.touch_out
+     expect(oystercard.balance).to eq 49
    end
  end
 
@@ -61,6 +56,12 @@ context "touch out" do
      oystercard.top_up(2)
      oystercard.touch_in
      expect { oystercard.touch_out }.to change{oystercard.in_journey}.from(true).to (false)
+   end
+
+   it 'should subtract minimum fare from balance after checking out' do
+     oystercard.top_up(2)
+     oystercard.touch_in
+     expect { oystercard.touch_out }.to change{oystercard.balance}.by(-1)
    end
 end
 
