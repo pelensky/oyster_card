@@ -9,48 +9,51 @@ describe Oystercard do
   let(:station2) {double :station2}
 
   context "balance" do
-  it 'should have a balance' do
-    expect(oystercard).to respond_to (:balance)
+    it 'should have a balance' do
+      expect(oystercard).to respond_to (:balance)
+    end
+
+    it 'should be able to change the balance' do
+      oystercard = Oystercard.new(10)
+      expect(oystercard.balance).to eq 10
+    end
   end
 
-  it 'should be able to change the balance' do
-    oystercard = Oystercard.new(10)
-    expect(oystercard.balance).to eq 10
-  end
-  end
+  context "top up" do
+    it "should top up the balance" do
+      oystercard.top_up(10)
+      expect(oystercard.balance).to eq 10
+    end
 
- context "top up" do
-   it "should top up the balance" do
-     oystercard.top_up(10)
-     expect(oystercard.balance).to eq 10
-   end
-
-   it 'fails to top up if balance will be greater than 90' do
-     oystercard.top_up(89)
-     expect { oystercard.top_up(2) }.to raise_error 'oystercard has maximum limit of £90'
-   end
- end
+    it 'fails to top up if balance will be greater than 90' do
+      oystercard.top_up(89)
+      expect { oystercard.top_up(2) }.to raise_error 'oystercard has maximum limit of £90'
+    end
+  end
 
 
   context "touch in" do
 
-   it "should fail if oyster has less than £1" do
-     oystercard.top_up(0.5)
-     expect { oystercard.touch_in(station1) }.to raise_error "Not enough money for single journey"
-   end
+    it "should fail if oyster has less than £1" do
+      oystercard.top_up(0.5)
+      expect { oystercard.touch_in(station1) }.to raise_error "Not enough money for single journey"
+    end
 
 
-end
+  end
 
-context "touch out" do
+  context "touch out" do
 
-   it 'should subtract minimum fare from balance after checking out' do
-     oystercard.top_up(2)
-     oystercard.touch_in(station1)
-     expect { oystercard.touch_out(station2) }.to change{oystercard.balance}.by(-1)
-   end
+    it 'should subtract minimum fare from balance after checking out' do
+      oystercard.top_up(2)
+      oystercard.touch_in(station1)
+      expect { oystercard.touch_out(station2) }.to change{oystercard.balance}.by(-1)
+    end
+  end
 
-   
+  context "fare" do
+    it "should have a minimum fare" do
 
-end
+    end
+  end
 end
