@@ -44,16 +44,22 @@ describe Oystercard do
 
   context "touch out" do
 
-    it 'should subtract minimum fare from balance after checking out' do
+
+  end
+
+  context "fare" do
+    it 'should subtract minimum fare from balance after touching out' do
       oystercard.top_up(2)
       oystercard.touch_in(station1)
       expect { oystercard.touch_out(station2) }.to change{oystercard.balance}.by(-1)
     end
-  end
 
-  context "fare" do
-    it "should have a minimum fare" do
+    it "should subtract maximum fare from balance if no touch in was recorded" do
+      expect { oystercard.touch_out(station2) }.to change{oystercard.balance}.by(-6)
+    end
 
+    it "should subtract maximum far from balance if a touch in was recorded but a touch out was not" do
+      #HAVE NOT DONE YET
     end
   end
 end

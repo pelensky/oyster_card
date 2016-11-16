@@ -3,7 +3,7 @@ require './lib/journey'
 
 class Oystercard
 
-  attr_reader :balance, :fare
+  attr_reader :balance
 
   MAXIMUM = 90
   MINIMUM = 1
@@ -24,6 +24,7 @@ class Oystercard
 
   def touch_in(station)
     fail "Not enough money for single journey" if @balance < @minimum
+    #deduct if @journey.entry_station != nil
     @journey.entry_station_registered(station)
   end
 
@@ -37,15 +38,13 @@ class Oystercard
 
   def fare
     if @journey.entry_station.nil?
-    @fare = PENALTY_FARE
+      PENALTY_FARE
     else
-    @fare = MINIMUM_FARE
-  end
+      MINIMUM_FARE
+    end
   end
 
   private
-
-
 
   def deduct
     @balance -= fare
