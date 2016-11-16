@@ -53,6 +53,8 @@ context "touch in" do
      expect(oystercard.entry_station).to eq @station1
    end
 
+
+
 end
 
 context "touch out" do
@@ -76,6 +78,13 @@ context "touch out" do
      expect(oystercard.entry_station). to eq nil
    end
 
+   it "should forget the exit station on touch out" do
+     oystercard.top_up(2)
+     oystercard.touch_in(@station1)
+     oystercard.touch_out(@station2)
+     expect(oystercard.exit_station). to eq nil
+   end
+
    it 'needs to know which station I touched out at' do
      oystercard.top_up(5)
      oystercard.touch_in(@station1)
@@ -83,6 +92,15 @@ context "touch out" do
      expect(oystercard.exit_station). to eq @station2
    end
 
-end
+   context "record journey" do
+     it "needs to create a hash to store entry and exit station" do
+       oystercard.top_up(5)
+       oystercard.touch_in(@station1)
+       oystercard.touch_out(@station2)
+       expect(oystercard.journey).to eq({:entry => @station1, :exit => @station2})
+     end
 
+   end
+
+end
 end
