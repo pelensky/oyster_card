@@ -53,8 +53,6 @@ context "touch in" do
      expect(oystercard.entry_station).to eq @station1
    end
 
-
-
 end
 
 context "touch out" do
@@ -93,11 +91,22 @@ context "touch out" do
    end
 
    context "record journey" do
+     it "checks whether there is an empty list of journeys by default" do
+     expect(oystercard.previous_trips).to eq ([])
+    end
+
      it "needs to create a hash to store entry and exit station" do
        oystercard.top_up(5)
        oystercard.touch_in(@station1)
        oystercard.touch_out(@station2)
        expect(oystercard.journey).to eq({:entry => @station1, :exit => @station2})
+     end
+
+     it "needs to store our journey in previous trips" do
+       oystercard.top_up(5)
+       oystercard.touch_in(@station1)
+       oystercard.touch_out(@station2)
+       expect(oystercard.previous_trips).to eq([{:entry => @station1, :exit => @station2}])
      end
 
    end
