@@ -2,7 +2,7 @@ require './lib/station'
 
 class Oystercard
 
-  attr_reader :balance, :entry_station
+  attr_reader :balance, :entry_station, :exit_station
 
   MAXIMUM = 90
   MINIMUM = 1
@@ -12,6 +12,7 @@ class Oystercard
   @maximum = MAXIMUM
   @minimum = MINIMUM
   @entry_station = nil
+  @exit_station = nil
   end
 
 
@@ -25,8 +26,9 @@ class Oystercard
     @entry_station = station
   end
 
-  def touch_out(fare = @minimum)
-    deduct(fare)
+  def touch_out(station)
+    deduct
+    @exit_station = station
     @entry_station = nil
   end
 
@@ -36,7 +38,7 @@ class Oystercard
 
 
 private
-  def deduct(fare)
+  def deduct(fare = @minimum)
     @balance -= fare
   end
 
