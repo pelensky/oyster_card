@@ -1,8 +1,6 @@
 require 'oyster'
 
 
-
-
 describe Oyster do
   subject(:card) {described_class.new}
   let(:station) {double(:station)}
@@ -42,16 +40,6 @@ describe Oyster do
       expect(card.entry_station).to eq nil
     end
 
-    it "should return name of the start station when on journey" do
-      card.touch_in(station)
-      expect(card.entry_station).to eq station
-    end
-
-    it "should return nil when touching out" do
-      card.touch_out(station)
-      expect(card.entry_station).to eq nil
-    end
-
     it "should deduct minimum fare from the balance when checking out" do
       card.touch_in(station)
       expect{card.touch_out(station)}.to change{card.balance}.by(-1)
@@ -66,36 +54,23 @@ describe Oyster do
       expect(card).to respond_to(:touch_in).with(1).argument
     end
 
-    it "should save the entry station" do
 
-      card.touch_in(station)
-      expect(card.entry_station).to eq station
-    end
-
-    it "should forget the entry station after check out" do
-      card.touch_in(station)
-      card.touch_out(station)
-      expect(card.entry_station).to eq nil
-    end
-
-    it "should forget the exit station after storing the journey" do
-      card.touch_out(station)
-      expect(card.exit_station).to eq nil
-    end
-
-    it "should have an empty list of journeys by default" do
-      expect(card.journey).to be_empty
-    end
-
-    it "should store a journey" do
-      card.touch_in(station)
-      card.touch_out(station2)
-      expect(card.journey[station]).to eq station2
-    end
 
     it 'should save the journey history' do
       expect(card).to respond_to(:journey_history)
     end
   end
 
+
+
+    context "using Journey" do
+
+
+      it "saves each journey" do
+      card.top_up(10)
+      card.touch_in("station1")
+      card.touch_out("station2")
+      expect(card.journey_history).to eq [{"station1"=>"station2"}]
+      end
+  end
 end
