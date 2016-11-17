@@ -84,13 +84,17 @@ describe Oyster do
     end
 
     it "should have an empty list of journeys by default" do
-      expect(card.journeys).to be_empty
+      expect(card.journey).to be_empty
     end
 
     it "should store a journey" do
       card.touch_in(station)
       card.touch_out(station2)
-      expect(card.journeys[station]).to eq station2
+      expect(card.journey[station]).to eq station2
+    end
+
+    it 'should save the journey history' do
+      expect(card).to respond_to(:journey_history)
     end
   end
 
