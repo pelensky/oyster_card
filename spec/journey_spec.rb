@@ -70,4 +70,12 @@ end
     end
   end
 
+  context "when calculating the cost of a journey" do
+
+    it "returns the minimum fare" do
+      expect(journey.fare).to eq Journey::MINIMUM_FARE
+    end
+
+  end
+
 end

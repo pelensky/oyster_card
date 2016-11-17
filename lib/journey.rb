@@ -1,5 +1,10 @@
+require './lib/oyster.rb'
+
 class Journey
+
 attr_reader :entry_station, :exit_station, :complete_journey
+MINIMUM_FARE = 1
+
   def initialize(entry_station = nil, exit_station = nil)
     @entry_station = entry_station
     @exit_station = exit_station
@@ -24,6 +29,10 @@ attr_reader :entry_station, :exit_station, :complete_journey
 def reset
   delete_entry
   delete_exit
+end
+
+def fare
+  MINIMUM_FARE
 end
 
 private

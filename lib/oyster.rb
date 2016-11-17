@@ -33,7 +33,6 @@ def touch_out(station)
   journey.reset
 end
 
-
 private
 
 
