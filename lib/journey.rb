@@ -22,6 +22,10 @@ MINIMUM_FARE = 1
     @trip[:exit_station] = station
   end
 
+  def complete?
+    @trip[:entry_station] != nil && @trip[:exit_station] != nil
+  end
+
   # def save_journey
   #   @complete_journey[@entry_station] = @exit_station
   # end

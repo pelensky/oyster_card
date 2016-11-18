@@ -1,14 +1,14 @@
 require 'journey'
 
 describe Journey do
-subject(:journey) {described_class.new}
+  subject(:journey) {described_class.new}
 
 
 
-let(:oyster) {double(:oyster)}
+  let(:oyster) {double(:oyster)}
 
-before(:each) { allow(oyster).to receive(:touch_in) {"station1"}}
-before(:each) { allow(oyster).to receive(:touch_out) {"station2"}}
+  before(:each) { allow(oyster).to receive(:touch_in) {"station1"}}
+  before(:each) { allow(oyster).to receive(:touch_out) {"station2"}}
 
   context "To keep history of journeys" do
 
@@ -31,15 +31,15 @@ before(:each) { allow(oyster).to receive(:touch_out) {"station2"}}
     # end
 
     it "saves the entry station as a value in a hash trip" do
-        journey.save_entry("old street")
-        expect(journey.trip[:entry_station]).to eq "old street"
+      journey.save_entry("old street")
+      expect(journey.trip[:entry_station]).to eq "old street"
     end
 
     it "saves the exit station as a value in the hash trip" do
       journey.save_exit("bank")
       expect(journey.trip[:exit_station]).to eq "bank"
     end
-end
+  end
 
   context "when beginning the journey" do
 
@@ -87,6 +87,17 @@ end
     end
 
 
+  end
+  context "journey complete" do
+    it "checks that a journey is not complete by default" do
+      expect(journey.complete?).to eq false
+    end
+
+    it "checks that a journey is complete if entry station and exit stations are not nil" do
+      journey.save_entry("station1")
+      journey.save_exit("station2")
+      expect(journey.complete?).to eq true
+    end
   end
 
 end
