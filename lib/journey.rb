@@ -32,11 +32,6 @@ PENALTY_FARE = 6
     no_touch_in or no_touch_out
   end
 
-  # def save_journey
-  #   @complete_journey[@entry_station] = @exit_station
-  # end
-
-
 def reset
   delete_entry
   delete_exit
