@@ -23,10 +23,12 @@ class Oyster
     message = "You're poor, go and top up"
     fail message if @balance < MINIMUM_FARE
     journey.save_entry(station)
+    journey.start_journey
   end
 
   def touch_out(station)
     journey.save_exit(station)
+    journey.end_journey
     deduct()
     save_history
   end

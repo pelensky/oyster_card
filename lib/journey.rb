@@ -1,5 +1,5 @@
 require './lib/oyster.rb'
-#comment
+
 class Journey
 
 attr_reader :entry_station, :exit_station, :trip
@@ -14,12 +14,21 @@ PENALTY_FARE = 6
 
   def save_entry(station)
     @entry_station = station
-    @trip[:entry_station] = station
+
   end
+
+  def start_journey
+    @trip[:entry_station] = @entry_station
+  end
+
+
 
   def save_exit(station)
     @exit_station = station
-    @trip[:exit_station] = station
+  end
+
+  def end_journey
+    @trip[:exit_station] = @exit_station
   end
 
   def complete?
