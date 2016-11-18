@@ -77,10 +77,10 @@ describe Oyster do
   end
 
   context "when the journey is not complete" do
-    before(:each) {card.top_up(15)}
+    before(:each) {card.top_up(10)}
     it "charges a penalty fare when there is no touch in" do
       card.touch_out("station2")
-      expect(card.balance).to eq 9
+      expect(card.balance).to eq 4
     end
 
     it "charges a penalty fare when there is no touch out" do

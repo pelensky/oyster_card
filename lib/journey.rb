@@ -26,6 +26,10 @@ PENALTY_FARE = 6
     @trip[:entry_station] != nil && @trip[:exit_station] != nil
   end
 
+  def partly_complete?
+    (@trip[:entry_station] == nil && @trip[:exit_station] != nil) || (@trip[:entry_station] != nil && @trip[:exit_station] == nil)
+  end
+
   # def save_journey
   #   @complete_journey[@entry_station] = @exit_station
   # end

@@ -109,6 +109,10 @@ describe Journey do
       expect(journey.complete?).to eq false
     end
 
+    it "checks if a journey is partly complete" do
+      expect(journey.partly_complete?).to eq false
+    end
+
     it "checks that a journey is complete if entry station and exit stations are not nil" do
       journey.save_entry("station1")
       journey.save_exit("station2")

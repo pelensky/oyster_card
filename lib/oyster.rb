@@ -20,14 +20,13 @@ def top_up(money)
 end
 
 def touch_in(station)
-  deduct 
+  deduct if journey.partly_complete?
   message = "You're poor, go and top up"
   fail message if @balance < MINIMUM_FARE
   journey.save_entry(station)
 end
 
 def touch_out(station)
-
   journey.save_exit(station)
   deduct()
   save_history
