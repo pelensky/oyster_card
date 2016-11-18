@@ -23,11 +23,16 @@ before(:each) { allow(oyster).to receive(:touch_out) {"station2"}}
       expect(journey.exit_station).to eq "station2"
     end
 
-    it "both entry and exit stations are saved as a hash complete journey" do
-      journey.save_entry("station1")
-      journey.save_exit("station2")
-      journey.save_journey
-      expect(journey.complete_journey).to eq({"station1"=>"station2"})
+    # it "both entry and exit stations are saved as a hash complete journey" do
+    #   journey.save_entry("station1")
+    #   journey.save_exit("station2")
+    #   journey.save_journey
+    #   expect(journey.complete_journey).to eq({"station1"=>"station2"})
+    # end
+
+    it "saves the entry station as a value in a hash trip" do
+        journey.save_entry("old street")
+        expect(journey.trip[:entry_station]).to eq "old street"
     end
 end
 
@@ -47,7 +52,7 @@ end
     end
 
     it "the complete hash is empty by default" do
-      expect(journey.complete_journey).to be_empty
+      expect(journey.trip).to eq({entry_station: nil, exit_station: nil})
     end
   end
 
@@ -72,9 +77,10 @@ end
 
   context "when calculating the cost of a journey" do
 
-    it "returns the minimum fare" do
+    it "returns the minimum fare if journey is complete" do
       expect(journey.fare).to eq Journey::MINIMUM_FARE
     end
+
 
   end
 
