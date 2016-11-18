@@ -34,6 +34,11 @@ before(:each) { allow(oyster).to receive(:touch_out) {"station2"}}
         journey.save_entry("old street")
         expect(journey.trip[:entry_station]).to eq "old street"
     end
+
+    it "saves the exit station as a value in the hash trip" do
+      journey.save_exit("bank")
+      expect(journey.trip[:exit_station]).to eq "bank"
+    end
 end
 
   context "when beginning the journey" do

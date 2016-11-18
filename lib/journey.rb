@@ -17,10 +17,9 @@ MINIMUM_FARE = 1
     @trip[:entry_station] = station
   end
 
-
-
   def save_exit(station)
     @exit_station = station
+    @trip[:exit_station] = station
   end
 
   # def save_journey
