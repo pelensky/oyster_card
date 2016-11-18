@@ -42,10 +42,10 @@ describe Oyster do
       expect(card.entry_station).to eq nil
     end
 
-    # it "should deduct minimum fare from the balance when checking out" do
-    #   card.touch_in(station)
-    #   expect{card.touch_out(station)}.to change{card.balance}.by(-1)
-    # end
+    it "should deduct minimum fare from the balance when checking out" do
+      card.touch_in(station)
+      expect{card.touch_out(station)}.to change{card.balance}.by(-1)
+    end
 
   end
 
@@ -65,14 +65,30 @@ describe Oyster do
 
 
 
-    # context "using Journey" do
-    #
-    #
-    #   it "saves each journey" do
-    #   card.top_up(10)
-    #   card.touch_in("station1")
-    #   card.touch_out("station2")
-    #   expect(card.journey_history).to eq [{"station1"=>"station2"}]
-    #   end
-  # end
+  context "using Journey" do
+
+
+    it "saves each journey" do
+      card.top_up(10)
+      card.touch_in("station1")
+      card.touch_out("station2")
+      expect(card.journey_history).to eq [{:entry_station=>"station1", :exit_station=>"station2"}]
+    end
+  end
+
+  context "when the journey is not complete" do
+    before(:each) {card.top_up(15)}
+    it "charges a penalty fare when there is no touch in" do
+      card.touch_out("station2")
+      expect(card.balance).to eq 9
+    end
+
+    it "charges a penalty fare when there is no touch out" do
+      card.touch_in("station1")
+      card.touch_in("station2")
+      expect(card.balance).to eq 4
+    end
+
+
+  end
 end

@@ -88,9 +88,21 @@ describe Journey do
       expect(journey.fare).to eq Journey::MINIMUM_FARE
     end
 
-    it "returns penalty fare if test is not complete" do
+    it "returns penalty fare if trip is not complete" do
       expect(journey.fare).to eq Journey::PENALTY_FARE
     end
+
+    it "returns penalty fare if trip is not complete, touch in, but no touch out" do
+      journey.save_entry("station1")
+      expect(journey.fare).to eq Journey::PENALTY_FARE
+    end
+
+    it "returns penalty fare if trip is not complete, touch out, but no touch in" do
+      journey.save_exit("station1")
+      expect(journey.fare).to eq Journey::PENALTY_FARE
+    end
+
+
   end
   context "journey complete" do
     it "checks that a journey is not complete by default" do

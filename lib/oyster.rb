@@ -20,15 +20,16 @@ def top_up(money)
 end
 
 def touch_in(station)
+  deduct 
   message = "You're poor, go and top up"
   fail message if @balance < MINIMUM_FARE
   journey.save_entry(station)
 end
 
 def touch_out(station)
-  deduct()
+
   journey.save_exit(station)
-  journey.save_journey
+  deduct()
   save_history
   journey.reset
 end
@@ -37,11 +38,11 @@ private
 
 
 def save_history
-  @journey_history << journey.complete_journey
+  @journey_history << journey.trip
 end
 
-def deduct(money = MINIMUM_FARE)
-  @balance -= money
+def deduct
+  @balance -= journey.fare
 end
 
 def max_capacity?(money)
