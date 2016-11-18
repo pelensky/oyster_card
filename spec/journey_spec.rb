@@ -83,10 +83,14 @@ describe Journey do
   context "when calculating the cost of a journey" do
 
     it "returns the minimum fare if journey is complete" do
+      journey.save_entry("station1")
+      journey.save_exit("station2")
       expect(journey.fare).to eq Journey::MINIMUM_FARE
     end
 
-
+    it "returns penalty fare if test is not complete" do
+      expect(journey.fare).to eq Journey::PENALTY_FARE
+    end
   end
   context "journey complete" do
     it "checks that a journey is not complete by default" do
