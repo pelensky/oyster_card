@@ -39,7 +39,7 @@ describe Oyster do
   describe "When checking card status" do
     before(:each) {card.top_up(10)}
     it "should return nil as a default" do
-      expect(card.entry_station).to eq nil
+      expect(card.journey_history).to eq []
     end
 
     it "should deduct minimum fare from the balance when checking out" do
@@ -88,7 +88,5 @@ describe Oyster do
       card.touch_in("station2")
       expect(card.balance).to eq 4
     end
-
-
   end
 end

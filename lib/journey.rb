@@ -5,11 +5,11 @@ class Journey
 attr_reader :entry_station, :exit_station, :trip
 MINIMUM_FARE = 1
 PENALTY_FARE = 6
-#calculate the journey
+
   def initialize(entry_station = nil, exit_station = nil)
     @entry_station = entry_station
     @exit_station = exit_station
-    @trip = {entry_station: nil, exit_station: nil}
+    @trip = { entry_station: @entry_station, exit_station: @exit_station }
   end
 
   def save_entry(station)
@@ -27,7 +27,9 @@ PENALTY_FARE = 6
   end
 
   def partly_complete?
-    (@trip[:entry_station] == nil && @trip[:exit_station] != nil) || (@trip[:entry_station] != nil && @trip[:exit_station] == nil)
+    no_touch_in = @trip[:entry_station].nil? && !@trip[:exit_station].nil?
+    no_touch_out = !@trip[:entry_station].nil? && @trip[:exit_station].nil?
+    no_touch_in or no_touch_out
   end
 
   # def save_journey
