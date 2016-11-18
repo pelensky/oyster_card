@@ -6,6 +6,8 @@ describe Oyster do
   let(:station) {double(:station)}
   let(:station2) {double(:station)}
 
+
+
   describe "Balance" do
     it "should display zero when object is initialized" do
       expect(card.balance).to eq 0
@@ -89,4 +91,6 @@ describe Oyster do
       expect(card.balance).to eq 4
     end
   end
+
+
 end

@@ -24,11 +24,11 @@ describe Journey do
     end
 
 
-    it "saves the entry station as a value in a hash trip" do
-      journey.save_entry("old street")
-      journey.start_journey
-      expect(journey.trip[:entry_station]).to eq "old street"
-    end
+    # it "saves the entry station as a value in a hash trip" do
+    #   journey.save_entry("old street")
+    #   journey.start_journey
+    #   expect(journey.trip[:entry_station]).to eq "old street"
+    # end
 
     it "saves the exit station as a value in the hash trip" do
       journey.save_exit("bank")
